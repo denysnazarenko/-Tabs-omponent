@@ -14,9 +14,9 @@ const TabContainer = () => {
 
   return (
     <section className="tab-container">
-      <PinnedTabs tabs={pinnedTabs}/>
-      <UnpinnedTabs tabs={unpinnedTabs}/>
-      {overflowTabs.length > 0 && <OverflowMenu tabs={overflowTabs}/>}
+      <PinnedTabs tabs={pinnedTabs} />
+      <UnpinnedTabs tabs={unpinnedTabs} />
+      {overflowTabs.length > 0 && <OverflowMenu tabs={overflowTabs} />}
     </section>
   )
 }
