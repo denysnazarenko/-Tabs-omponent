@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Reorder } from 'framer-motion';
-import { setActiveTab } from '../tabContainer/TabsSlice';
+import { setActiveTab, togglePinnedStatus } from '../tabContainer/TabsSlice';
 
 import './tabItem.scss';
 
@@ -10,9 +10,33 @@ const TabItem = ({ tab }) => {
   const [isDraggable, setIsDraggable] = useState(window.innerWidth >= 767);
   const dispatch = useDispatch();
 
-  const setActive = () => {
-    dispatch(setActiveTab(tab.id))
-  }
+  // const setActive = () => {
+  //   dispatch(setActiveTab(tab.id))
+  // }
+
+  // const handleDoubleClick = (e) => {
+  //   e.stopPropagation();
+  //   dispatch(togglePinnedStatus(tab.id));
+  // };
+  
+  const handleClick = () => {
+    if (timer) {
+      clearTimeout(timer);
+      setTimer(null);
+    } else {
+      const newTimer = setTimeout(() => {
+        dispatch(setActiveTab(tab.id));
+        setTimer(null);
+      }, 200);
+      setTimer(newTimer);
+    }
+  };
+
+  const handleDoubleClick = () => {
+    clearTimeout(timer);
+    setTimer(null);
+    dispatch(togglePinnedStatus(tab.id));
+  };
 
   const handlePointerDown = () => {
     if (window.innerWidth < 767) {
@@ -34,7 +58,9 @@ const TabItem = ({ tab }) => {
     <Reorder.Item
       value={tab}
       className={`tab-item ${tab.isPinned ? "pinned" : ""} ${tab.isActive ? "active" : ""}`}
-      onClick={setActive}
+      // onClick={setActive}
+      onClick={handleClick}
+      onDoubleClick={handleDoubleClick}
       onPointerDown={handlePointerDown}
       onPointerUp={handlePointerUp}
       drag={isDraggable}

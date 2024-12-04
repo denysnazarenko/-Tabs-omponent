@@ -1,0 +1,41 @@
+.overflow-menu {
+  position: relative;
+}
+.menu-button {
+  height: 100%;
+  width: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  &-open {
+    background: #4690e2;
+  }
+  &-close {
+    background: transparent;
+  }
+}
+
+.menu-list {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: #fff;
+  border: 1px solid #ccc;
+  list-style: none;
+  padding: 15px;
+  margin: 0;
+  z-index: 1000;
+
+  li {
+    padding: 15px 0px;
+    cursor: pointer;
+    transition: all 0.3s ease 0s;
+    &:hover {
+      color: #343434;
+    }
+    &:not(:last-child) {
+      border-bottom: 1px solid rgba(174, 182, 206, 0.2);
+    }
+  }
+}

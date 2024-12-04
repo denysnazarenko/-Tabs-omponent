@@ -27,7 +27,12 @@ const initialState = loadStateFromLocalStorage() || {
     { id: 13, title: "Rechn", isPinned: false, isActive: false, url: "/rechn" },
     { id: 14, title: "Lagerverwaltung", isPinned: false, isActive: false, url: "/lagerverwaltung" }
   ],
-  overflowTabs: [],
+  overflowTabs: [
+    { id: 15, title: "Auswahllisten", isPinned: false, isActive: false, url: "/auswahllisten" },
+    { id: 16, title: "Einkauf", isPinned: false, isActive: false, url: "/einkauf" },
+    { id: 17, title: "Rechn", isPinned: false, isActive: false, url: "/rechn" },
+    { id: 18, title: "Lagerverwaltung", isPinned: false, isActive: false, url: "/lagerverwaltung" }
+  ],
   activeTabId: 1,
 }
 
@@ -53,6 +58,15 @@ const tabsSlice = createSlice({
         })),
       ];
     },
+    togglePinnedStatus(state, action) {
+      const tab = state.tabs.find((tab) => tab.id === action.payload);
+      if (tab) {
+        tab.isPinned = !tab.isPinned;
+      }
+    },
+    // updateOverflowTabs: (state, action) => {
+    //   state.overflowTabs = action.payload;
+    // },
   }
 })
 
@@ -60,5 +74,6 @@ const { actions, reducer } = tabsSlice;
 export default reducer;
 export const {
   setActiveTab,
-  reorderTabs
+  reorderTabs,
+  togglePinnedStatus
 } = actions;
