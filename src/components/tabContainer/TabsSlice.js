@@ -13,7 +13,7 @@ const loadStateFromLocalStorage = () => {
 const initialState = loadStateFromLocalStorage() || {
   tabs: [
     { id: 1, title: "Dashboard", isPinned: true, isActive: true, url: "/dashboard" },
-    { id: 2, title: "Banking", isPinned: false, isActive: false, url: "/banking" },
+    { id: 2, title: "Banking", isPinned: true, isActive: false, url: "/banking" },
     { id: 3, title: "Telefonie", isPinned: false, isActive: false, url: "/telefonie" },
     { id: 4, title: "Accounting", isPinned: false, isActive: false, url: "/accounting" },
     { id: 5, title: "Verkauf", isPinned: false, isActive: false, url: "/verkauf" },
@@ -42,11 +42,23 @@ const tabsSlice = createSlice({
       });
       state.activeTabId = activeTabId;
     },
+    reorderTabs(state, action) {
+      const { newOrder, isPinned } = action.payload;
+      const reorderedTabs = state.tabs.filter(tab => tab.isPinned === isPinned);
+      const otherTabs = state.tabs.filter(tab => tab.isPinned !== isPinned);
+      state.tabs = [
+        ...otherTabs,
+        ...newOrder.map(tab => ({
+          ...reorderedTabs.find(originalTab => originalTab.id === tab.id),
+        })),
+      ];
+    },
   }
 })
 
 const { actions, reducer } = tabsSlice;
 export default reducer;
 export const {
-  setActiveTab
+  setActiveTab,
+  reorderTabs
 } = actions;

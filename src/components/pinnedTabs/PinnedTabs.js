@@ -1,14 +1,28 @@
+import { useDispatch } from "react-redux";
+import { Reorder } from "framer-motion";
+import { reorderTabs } from "../tabContainer/TabsSlice";
 import TabItem from "../tabItem/TabItem";
 
 import './pinnedTabs.scss';
 
 const PinnedTabs = ({ tabs }) => {
+  const dispatch = useDispatch();
+
+  const handleReorder = (newOrder) => {
+    dispatch(reorderTabs({ newOrder, isPinned: true }));
+  };
+
   return (
-    <section className="pinned-tabs">
+    <Reorder.Group
+      as="ul"
+      axis="x"
+      values={tabs}
+      onReorder={handleReorder}
+      className="pinned-tabs">
       {tabs.map(tab => (
-        <TabItem key={tab.id} tab={tab} draggable={false} />
+        <TabItem key={tab.id} tab={tab} />
       ))}
-    </section>
+    </Reorder.Group>
   );
 }
 
