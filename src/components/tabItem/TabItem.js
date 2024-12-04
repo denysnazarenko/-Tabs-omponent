@@ -10,15 +10,6 @@ const TabItem = ({ tab }) => {
   const [isDraggable, setIsDraggable] = useState(window.innerWidth >= 767);
   const dispatch = useDispatch();
 
-  // const setActive = () => {
-  //   dispatch(setActiveTab(tab.id))
-  // }
-
-  // const handleDoubleClick = (e) => {
-  //   e.stopPropagation();
-  //   dispatch(togglePinnedStatus(tab.id));
-  // };
-  
   const handleClick = () => {
     if (timer) {
       clearTimeout(timer);
@@ -58,7 +49,6 @@ const TabItem = ({ tab }) => {
     <Reorder.Item
       value={tab}
       className={`tab-item ${tab.isPinned ? "pinned" : ""} ${tab.isActive ? "active" : ""}`}
-      // onClick={setActive}
       onClick={handleClick}
       onDoubleClick={handleDoubleClick}
       onPointerDown={handlePointerDown}
