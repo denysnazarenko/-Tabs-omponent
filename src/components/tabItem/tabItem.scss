@@ -1,11 +1,19 @@
 .tab-item {
   padding: 15px 20px;
   cursor: pointer;
-  &:hover {
-    background: #f4f7f9;
+  @media (hover: hover) {
+    &:hover {
+      background: #f4f7f9;
+    }
   }
   &.active {
     background: #f4f7f9;
     border-top: 2px solid #4690E2;
+  }
+  &.pressing {
+    cursor: wait;
+  }
+  &.dragging {
+    cursor: grabbing;
   }
 }
